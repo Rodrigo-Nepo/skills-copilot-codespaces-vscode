@@ -1,10 +1,25 @@
 //create web server
-var express = require('express');
-var app = express();
-app.use(express.static('public'));
-var server = require('http').Server(app);
-var io = require('socket.io')(server);
-var port = process.env.PORT || 8080;
-server.listen(port, function() {
-    console.log('Server listening at port %d', port);
+const express = require('express');
+const app = express();
+
+//import file system
+const fs = require('fs');
+//import csv parser
+const csv = require('csv-parser');
+
+//import csv file
+const results = [];
+fs.createReadStream('comments.csv')
+  .pipe(csv())
+  .on('data', (data) => results.push(data))
+  .on('end', () => {
+    console.log(results);
+  });
+
+//define port
+const port = 3000;
+
+//listen to port
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
 });
