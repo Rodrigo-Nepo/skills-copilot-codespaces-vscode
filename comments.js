@@ -1,4 +1,4 @@
-//create web server
+// Create web server
 //create a web server that listens on port 3000
 //create a route that listens for a GET request on the path /comments
 //send back a list of comments as JSON
