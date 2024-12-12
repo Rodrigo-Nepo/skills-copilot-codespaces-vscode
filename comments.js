@@ -1,25 +1,21 @@
 //create web server
-const express = require('express');
-const app = express();
+//create a web server that listens on port 3000
+//create a route that listens for a GET request on the path /comments
+//send back a list of comments as JSON
 
-//import file system
-const fs = require('fs');
-//import csv parser
-const csv = require('csv-parser');
+var express = require('express');
+var app = express();
 
-//import csv file
-const results = [];
-fs.createReadStream('comments.csv')
-  .pipe(csv())
-  .on('data', (data) => results.push(data))
-  .on('end', () => {
-    console.log(results);
-  });
+var comments = [
+  'My first comment',
+  'My second comment',
+  'My third comment'
+];
 
-//define port
-const port = 3000;
+app.get('/comments', function(request, response) {
+  response.json(comments);
+});
 
-//listen to port
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+app.listen(3000, function() {
+  console.log('Listening on port 3000');
 });
